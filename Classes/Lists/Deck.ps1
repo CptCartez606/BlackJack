@@ -20,7 +20,6 @@ class Deck:List
         $tempCard = [Card]::new(11, $suit, "Ace")
         $this.AddToList($tempCard)
     }
-
     [void]CreateDeck()
     {
         $this.CreateSuit("Spades")
@@ -50,9 +49,11 @@ class Deck:List
         }
         
     }
-    [void]DrawCard()
+    [Card]DrawCard()
     {
-
+        $tempC = $this.items[0]
+        $this.items.RemoveAt(0)
+        return $tempC
     }
 
     Deck()

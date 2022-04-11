@@ -2,8 +2,6 @@ class User
 {
     [Hand]$PHand
 
-    [string]$name
-
     User()
     {
         $this.PHand = [Hand]::new()

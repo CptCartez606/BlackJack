@@ -7,8 +7,6 @@
 . .\Classes\Users\Player.ps1
 . .\Classes\Users\Dealer.ps1
 
-#$dealer = [Dealer]::new()
-#Write-Host $dealer.Game_Deck.items[0]
-$testdeck = [Deck]::new()
-#$testdeck.CreateDeck()
-$testdeck.PrintList()
+$dealer = [Dealer]::new()
+$dealer.DealCards()
+$dealer.PHand.PrintList()
