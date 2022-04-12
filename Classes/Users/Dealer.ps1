@@ -1,21 +1,38 @@
 class Dealer:User
 {
     [Deck]$m_Game_Deck
-    #[Player]$m_Player
+    [Player]$m_Player
+    [int]$m_DealtCards
 
-    [void]DealCard()
+    [void]DealCard($p)
     {
         #TODO-single use
-        $this.m_PHand.m_items[0] = $this.m_Game_Deck.DrawCard()
+        switch ($p)
+        {
+             
+            "Dealer"
+            {
+                $this.AddToHand($this.m_Game_Deck.DrawCard())
+            }
+            "Player"
+            {
+                $this.m_Player.AddToHand($this.m_Game_Deck.DrawCard())
+            }
+        }
     }
-    [void]DealCards()
+    [void]InitalDealCards()
     {
-        $this.m_PHand.m_items[0] = $this.m_Game_Deck.DrawCard()
-        $this.m_PHand.m_items[1] = $this.m_Game_Deck.DrawCard()
+        $this.DealCard("Dealer")
+        $this.DealCard("Dealer")
+        
+        $this.DealCard("Player")
+        $this.DealCard("Player")
     }
     Dealer()
     {
         $this.m_Game_Deck = [Deck]::new()
-        Write-Host "Dealer Created"
+        $this.m_Player = [Player]::new()
+        $this.m_DealtCards = 0
+        #Write-Host "Dealer Created"
     }
 }

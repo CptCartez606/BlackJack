@@ -8,5 +8,6 @@
 . .\Classes\Users\Dealer.ps1
 
 $dealer = [Dealer]::new()
-$dealer.DealCards()
+$dealer.InitalDealCards()
 $dealer.m_PHand.PrintList()
+$dealer.m_Player.m_PHand.PrintList()
