@@ -4,8 +4,8 @@ class Hand:List
     {
         Write-Host "Hand Created"
         $tempCard = [Card]::new(2, "Holder", "Number")
-        $this.items += $tempCard
-        $this.items += $tempCard
+        $this.m_items += $tempCard
+        $this.m_items += $tempCard
 
     }
 }

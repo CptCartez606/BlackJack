@@ -43,16 +43,16 @@ class Deck:List
             }
 
             #Swap cards
-            $tempCard = $this.items[$randomNum1]
-            $this.items[$randomNum1] = $this.items[$randomNum2]
-            $this.items[$randomNum2] = $tempCard
+            $tempCard = $this.m_items[$randomNum1]
+            $this.m_items[$randomNum1] = $this.m_items[$randomNum2]
+            $this.m_items[$randomNum2] = $tempCard
         }
         
     }
     [Card]DrawCard()
     {
-        $tempC = $this.items[0]
-        $this.items.RemoveAt(0)
+        $tempC = $this.m_items[0]
+        $this.m_items.RemoveAt(0)
         return $tempC
     }
 

@@ -1,14 +1,14 @@
 class User
 {
-    [Hand]$PHand
+    [Hand]$m_PHand
 
     User()
     {
-        $this.PHand = [Hand]::new()
+        $this.m_PHand = [Hand]::new()
     }
 
     [void]AddToHand($param)
     {
-        $this.PHand.AddToList($param)
+        $this.m_PHand.AddToList($param)
     }
 }

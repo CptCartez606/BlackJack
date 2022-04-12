@@ -1,26 +1,26 @@
 class Card
 {
-    [int]$value
-    [string]$suit
-    [string]$name
+    [int]$m_value
+    [string]$m_suit
+    [string]$m_name
 
     Card([int]$val, [string]$sym, [string]$n)
     {
-        $this.value = $val
-        $this.suit = $sym
-        $this.name = $n
+        $this.m_value = $val
+        $this.m_suit = $sym
+        $this.m_name = $n
     }
 
     [int]GetValue()
     {
-        return $this.value
+        return $this.m_value
     }
     [string]GetSymbol()
     {
-        return $this.suit
+        return $this.m_suit
     }
     [string]GetName()
     {
-        return $this.name
+        return $this.m_name
     }
 }

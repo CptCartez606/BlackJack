@@ -9,4 +9,4 @@
 
 $dealer = [Dealer]::new()
 $dealer.DealCards()
-$dealer.PHand.PrintList()
+$dealer.m_PHand.PrintList()
