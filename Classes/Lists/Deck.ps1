@@ -26,8 +26,6 @@ class Deck:List
         $this.CreateSuit("Clubs")
         $this.CreateSuit("Hearts")
         $this.CreateSuit("Diamonds")
-              
-        Write-Host "Deck Created"
     }
     [void]ShuffleDeck()
     {
