@@ -38,7 +38,9 @@ class GameManager
     }
     [void]PlayerChoice()
     {
-        if($this.m_Player.GetTurn())
+        $this.m_Player.UpdateStatus()
+
+        if($this.m_Player.GetStatus() -eq "Active")
         {
             $choiceflag = $false
             [string]$userInput = ""
@@ -66,14 +68,10 @@ class GameManager
                 }
                 Default
                 {
-                    "You didn't enter a correct entry dummy!"
+                    Write-Host "You didn't enter a correct entry dummy!"
                 }
             }
-        }
-        else 
-        {
-            Write-Host "Player has ended their turn. Dealer's turn now..."
-            Pause
+            #Clear-Host
         }
     }
     [bool]IsPlayerTurn()
@@ -83,6 +81,10 @@ class GameManager
             $this.m_Player.EndTurn()
         }
         return $true
+    }
+    [void]DealerTurn()
+    {
+        #TODO
     }
     GameManager()
     {

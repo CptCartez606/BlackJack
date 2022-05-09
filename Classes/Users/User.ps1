@@ -3,12 +3,16 @@ class User
     [Hand]$m_PHand
     [int]$m_DealtCards
     [bool]$IsStay = $false
+    #BJ - Hit 21
     [bool]$IsBust = $false
+    [bool]$IsBJ = $false
+    [string]$EndStatus
 
     User()
     {
         $this.m_PHand = [Hand]::new()
         $this.m_DealtCards = 0
+        $this.EndStatus = "Active"
     }
     [void]AddToHand($param)
     {
@@ -28,26 +32,37 @@ class User
         }
         return $score
     }
+    # Runs function when player explicitly Stays
     [void]Stay()
     {
         $this.IsStay = $true
+        $this.EndStatus = "Staying"
         Write-Host "Staying..."
     }
-    [void]CheckIfBust()
+    [void]CheckForBJ()
+    {
+        if($this.GetScore() -eq 21)
+        {
+            $this.IsBJ = $true
+            $this.EndStatus = "Black Jack"
+        }
+    }
+    [void]CheckForBust()
     {
         if($this.GetScore() -gt 21)
         {
             $this.IsBust = $true
+            $this.EndStatus = "Busted"
         }
     }
-    [bool]GetTurn()
+    # Runs Checks functions above
+    [void]UpdateStatus()
     {
-        $IsTurn = $true
-        if($this.CheckIfBust() -or $this.IsStay -or $this.GetScore() -ge 21)
-        {
-            $IsTurn = $false
-        }
-        
-        return $IsTurn
+        $this.CheckForBust()
+        $this.CheckForBJ()
+    }
+    [string]GetStatus()
+    {
+        return $this.EndStatus
     }
 }

@@ -11,11 +11,24 @@
 $gm = [GameManager]::new()
 $gm.InitalDealCards()
 
-while($gm.m_Player.GetTurn())
+while($gm.m_Player.GetStatus() -eq "Active")
 {
     $gm.PrintBoard()
     $gm.PlayerChoice()
 }
-$gm.PrintBoard()
 
-#TODO - Need to tell Player if they won/lost
+switch($gm.m_Player.GetStatus())
+{
+    "Staying"
+    {
+        Write-Host "Staying"
+    }
+    "Black Jack"
+    {
+        Write-Host "Black Jack!"
+    }
+    "Busted"
+    {
+        Write-Host "Busted!"
+    }
+}
