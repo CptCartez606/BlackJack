@@ -65,4 +65,31 @@ class User
     {
         return $this.EndStatus
     }
+    [void]PrintStatus()
+    {
+
+        switch($this.GetStatus())
+        {
+            "Staying"
+            {
+                Write-Host "Staying"
+            }
+            "Black Jack"
+            {
+                Write-Host "Black Jack!"
+            }
+            "Busted"
+            {
+                Write-Host "Busted!"
+            }
+        }
+    }
+    [bool]IsTurn()
+    {
+        if($this.GetScore() -ge 21 -OR $this.GetTurn())
+        {
+            $this.EndTurn()
+        }
+        return $true
+    }
 }

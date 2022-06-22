@@ -4,6 +4,18 @@ class GameManager
     [Deck]$m_Game_Deck
     [Player]$m_Player
     
+    GameManager()
+    {
+        $this.m_Dealer = [Dealer]::new()
+        $this.m_Game_Deck = [Deck]::new()
+        $this.m_Player = [Player]::new()
+
+        #Write-Host "Manager Created"
+        #run first time setup
+        $this.InitalDealCards()
+        $this.UpdateAllStatus()
+    }
+
     [void]PrintBoard()
     {
         Write-Host "Dealer: " $this.m_Dealer.GetScore()
@@ -36,26 +48,21 @@ class GameManager
             $this.DealCard("Player")
             $this.DealCard("Player")
     }
-    [void]PlayerChoice()
+    #Get realtime status of players
+    [void]UpdateAllStatus()
     {
         $this.m_Player.UpdateStatus()
-
-        if($this.m_Player.GetStatus() -eq "Active")
-        {
-            $choiceflag = $false
-            [string]$userInput = ""
-            while(!$choiceflag)
-            {
-                $message = "Hit or Stay?"
-                try {
-                    $userInput = Read-Host -Prompt $message
-                    $choiceflag = $true
-                }
-                catch {
-                    Write-Host "Error: Invalid entry! Try again"
-                }
-            }
-            switch ($userInput)
+        $this.m_Dealer.UpdateStatus()
+    }
+    #I hope I don't have to explain this
+    [void]DealerTurn()
+    {
+        #TODO
+    }
+    #yeah I know I couldn't come up with a better name
+    [void]ManagerResponseToPlayer()
+    {
+        switch ($this.m_Player.userInput)
             {
                 "Hit"
                 {
@@ -63,7 +70,7 @@ class GameManager
                 }
                 "Stay"
                 {
-                    $this.m_Player.Stay()
+                    $this.Stay()
 
                 }
                 Default
@@ -71,26 +78,5 @@ class GameManager
                     Write-Host "You didn't enter a correct entry dummy!"
                 }
             }
-            #Clear-Host
-        }
-    }
-    [bool]IsPlayerTurn()
-    {
-        if($this.m_Player.GetScore() -ge 21 -OR $this.m_Player.GetTurn())
-        {
-            $this.m_Player.EndTurn()
-        }
-        return $true
-    }
-    [void]DealerTurn()
-    {
-        #TODO
-    }
-    GameManager()
-    {
-        $this.m_Dealer = [Dealer]::new()
-        $this.m_Game_Deck = [Deck]::new()
-        $this.m_Player = [Player]::new()
-        #Write-Host "Manager Created"
     }
 }

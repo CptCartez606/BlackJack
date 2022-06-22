@@ -9,26 +9,20 @@
 . .\Classes\GameManager.ps1
 
 $gm = [GameManager]::new()
-$gm.InitalDealCards()
 
-while($gm.m_Player.GetStatus() -eq "Active")
+if($gm.$m_Dealer.GetStatus -ne "Busted")
 {
     $gm.PrintBoard()
-    $gm.PlayerChoice()
-}
+    while($gm.m_Player.GetStatus() -eq "Active")
+    {
+        $gm.m_Player.PlayerChoice()
+        $gm.ManagerResponseToPlayer()
+        $gm.PrintBoard()
+        $gm.UpdateAllStatus()
+    }
 
-switch($gm.m_Player.GetStatus())
-{
-    "Staying"
-    {
-        Write-Host "Staying"
-    }
-    "Black Jack"
-    {
-        Write-Host "Black Jack!"
-    }
-    "Busted"
-    {
-        Write-Host "Busted!"
-    }
+    $gm.m_Player.PrintStatus()      
+}
+else {
+    Write-Host "Dealer Busted! You Win!"
 }
