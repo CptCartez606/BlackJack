@@ -12,6 +12,7 @@ $gm = [GameManager]::new()
 
 if($gm.$m_Dealer.GetStatus -ne "Busted")
 {
+    #Player turn
     $gm.PrintBoard()
     while($gm.m_Player.GetStatus() -eq "Active")
     {
@@ -21,7 +22,16 @@ if($gm.$m_Dealer.GetStatus -ne "Busted")
         $gm.UpdateAllStatus()
     }
 
-    $gm.m_Player.PrintStatus()      
+    $gm.m_Player.PrintStatus()
+
+    #Dealer turn
+    while($gm.m_Dealer.GetStatus() -eq "Active")
+    {
+        $gm.DealerTurn()
+        $gm.PrintBoard()
+        $gm.UpdateAllStatus()
+    }
+    $gm.m_Dealer.PrintStatus()
 }
 else {
     Write-Host "Dealer Busted! You Win!"

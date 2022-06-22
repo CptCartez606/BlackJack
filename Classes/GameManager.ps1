@@ -57,7 +57,15 @@ class GameManager
     #I hope I don't have to explain this
     [void]DealerTurn()
     {
-        #TODO
+        $score = $this.m_Dealer.GetScore()
+        if($score -ge 2 -and $score -le 16)
+        {
+            $this.DealCard("Dealer")
+        }
+        elseif ($score -ge 17 -and $score -le 20) 
+        {
+            $this.m_Dealer.Stay()
+        }
     }
     #yeah I know I couldn't come up with a better name
     [void]ManagerResponseToPlayer()
@@ -70,7 +78,7 @@ class GameManager
                 }
                 "Stay"
                 {
-                    $this.Stay()
+                    $this.m_Player.Stay()
 
                 }
                 Default
@@ -78,5 +86,20 @@ class GameManager
                     Write-Host "You didn't enter a correct entry dummy!"
                 }
             }
+    }
+    #avengers theme plays in background
+    [void]EndGameLogic()
+    {
+        $pStatus = $this.m_Player.EndStatus
+        $dStatus = $this.m_Dealer.EndStatus
+
+        if($pStatus -eq "Staying" -and $dStatus -eq "Staying")
+        {
+            #Check who has bigger number
+        }
+        #elseif(who busted)
+        #elseif(if both busted)
+        #elseif(if blackjack)
+        #elseif(if both blackjack)
     }
 }
