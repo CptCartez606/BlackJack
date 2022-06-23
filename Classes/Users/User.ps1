@@ -21,11 +21,17 @@ class User
     }
     [int]GetScore()
     {
-        #TODO - need logic for Aces
         $score = 0
         foreach ($element in $this.m_PHand.m_items)
         {
-            $score += $element.GetValue()
+            #I'm too lazy to find a nice one to find the easiest way to 21, yall just getting ones
+            if($this.m_PHand.GetSize() -gt 3 -and $element.GetName() -eq "Ace")
+            {
+                $score += 1
+            }
+            else{
+                $score += $element.GetValue()
+            }
         }
         return $score
     }

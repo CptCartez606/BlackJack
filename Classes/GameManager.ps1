@@ -17,7 +17,6 @@ class GameManager
         $this.InitalDealCards()
         $this.UpdateAllStatus()
     }
-
     [void]PrintBoard()
     {
         Write-Host "Dealer: " $this.m_Dealer.GetScore()
@@ -66,7 +65,7 @@ class GameManager
             $this.DealCard("Dealer")
             Write-Host "Hitting!"
         }
-        elseif ($score -ge 17 -and $score -le 20 -and $this.m_Player.EndStatus -eq "Busted") 
+        elseif ($score -ge 17 -and $score -le 20 -or $this.m_Player.EndStatus -eq "Busted") 
         {
             $this.m_Dealer.Stay()
             Write-Host "Staying!"
@@ -140,5 +139,4 @@ class GameManager
 
         Write-Host "The winner is" $this.m_Winner
     }
-
 }

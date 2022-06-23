@@ -4,7 +4,7 @@ class List
 
     [int]GetSize()
     {
-        return $this.m_items.Count()
+        return $this.m_items.Count
     }
     [void]AddToList($c)
     {
