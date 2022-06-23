@@ -21,6 +21,7 @@ class User
     }
     [int]GetScore()
     {
+        #TODO - need logic for Aces
         $score = 0
         foreach ($element in $this.m_PHand.m_items)
         {
@@ -32,7 +33,6 @@ class User
     [void]Stay()
     {
         $this.EndStatus = "Staying"
-        Write-Host "Staying..."
     }
     # Runs Checks functions above
     [void]UpdateStatus()
@@ -56,7 +56,7 @@ class User
         {
             "Staying"
             {
-                Write-Host "Staying"
+                Write-Host "Staying..."
             }
             "Black Jack"
             {

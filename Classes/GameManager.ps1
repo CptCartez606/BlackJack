@@ -3,6 +3,8 @@ class GameManager
     [Dealer]$m_Dealer
     [Deck]$m_Game_Deck
     [Player]$m_Player
+
+    [string]$m_Winner
     
     GameManager()
     {
@@ -53,6 +55,7 @@ class GameManager
     {
         $this.m_Player.UpdateStatus()
         $this.m_Dealer.UpdateStatus()
+        $this.m_Winner = "Tie"
     }
     #I hope I don't have to explain this
     [void]DealerTurn()
@@ -61,10 +64,12 @@ class GameManager
         if($score -ge 2 -and $score -le 16)
         {
             $this.DealCard("Dealer")
+            Write-Host "Hitting!"
         }
-        elseif ($score -ge 17 -and $score -le 20) 
+        elseif ($score -ge 17 -and $score -le 20 -and $this.m_Player.EndStatus -eq "Busted") 
         {
             $this.m_Dealer.Stay()
+            Write-Host "Staying!"
         }
     }
     #yeah I know I couldn't come up with a better name
@@ -90,16 +95,50 @@ class GameManager
     #avengers theme plays in background
     [void]EndGameLogic()
     {
-        $pStatus = $this.m_Player.EndStatus
-        $dStatus = $this.m_Dealer.EndStatus
+        $plyer = $this.m_Player
+        $dler = $this.m_Dealer
 
-        if($pStatus -eq "Staying" -and $dStatus -eq "Staying")
+        #If no special conditions, just check score
+        if($plyer.EndStatus -eq "Staying" -and $dler.EndStatus -eq "Staying")
         {
-            #Check who has bigger number
+            if($plyer.GetScore() -gt $dler.GetScore()){
+                $this.m_Winner = "Player"
+            }
+            elseif($plyer.GetScore() -lt $dler.GetScore()){
+                $this.m_Winner = "Dealer"
+            }
+            elseif($plyer.GetScore() -eq $dler.GetScore()){
+                $this.m_Winner = "Tie"
+            }
         }
-        #elseif(who busted)
-        #elseif(if both busted)
-        #elseif(if blackjack)
-        #elseif(if both blackjack)
+        #If someone busted
+        elseif($plyer.EndStatus -eq "Busted" -or $dler.EndStatus -eq "Busted")
+        {
+           if($plyer.EndStatus -eq "Busted" -and $dler.EndStatus -eq "Busted"){
+                $this.m_Winner = "Tie"
+           }
+           elseif ($plyer.EndStatus -eq "Busted") {
+                $this.m_Winner = "Dealer"
+           }
+           elseif ($dler.EndStatus -eq "Busted") {
+            $this.m_Winner = "Player"
+           }
+        }
+        #If BlackJack
+        elseif($plyer.EndStatus -eq "Black Jack" -or $dler.EndStatus -eq "Black Jack")
+        {
+            if($plyer.EndStatus -eq "Black Jack" -and $dler.EndStatus -eq "Black Jack"){
+                $this.m_Winner = "Tie"
+            }
+            elseif ($plyer.EndStatus -eq "Black Jack") {
+                $this.m_Winner = "Player"
+            }
+            elseif ($dler.EndStatus -eq "Busted") {
+                $this.m_Winner = "Dealer"
+           }
+        }
+
+        Write-Host "The winner is" $this.m_Winner
     }
+
 }

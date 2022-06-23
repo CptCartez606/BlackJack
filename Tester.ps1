@@ -18,20 +18,27 @@ if($gm.$m_Dealer.GetStatus -ne "Busted")
     {
         $gm.m_Player.PlayerChoice()
         $gm.ManagerResponseToPlayer()
-        $gm.PrintBoard()
         $gm.UpdateAllStatus()
+        if($gm.m_Player.GetStatus() -ne "Staying"){
+            $gm.PrintBoard()
+        }
     }
 
     $gm.m_Player.PrintStatus()
+    Pause
+    $gm.PrintBoard()
 
     #Dealer turn
     while($gm.m_Dealer.GetStatus() -eq "Active")
     {
         $gm.DealerTurn()
-        $gm.PrintBoard()
         $gm.UpdateAllStatus()
+        if($gm.m_Dealer.GetStatus() -ne "Staying"){
+            $gm.PrintBoard()
+        }
     }
-    $gm.m_Dealer.PrintStatus()
+
+    $gm.EndGameLogic()
 }
 else {
     Write-Host "Dealer Busted! You Win!"
