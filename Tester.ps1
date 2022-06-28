@@ -43,3 +43,4 @@ if($gm.$m_Dealer.GetStatus -ne "Busted")
 else {
     Write-Host "Dealer Busted! You Win!"
 }
+Pause
